@@ -558,7 +558,7 @@ export default class Bot {
         return new Promise((resolve, reject) => {
             void axios({
                 method: 'GET',
-                url: 'https://raw.githubusercontent.com/TF2Autobot/tf2autobot/master/package.json',
+                url: 'https://raw.githubusercontent.com/ExplodingBottle/tf2autobot-nosda/master/package.json',
                 signal: axiosAbortSignal(60000)
             })
                 .then(response => {

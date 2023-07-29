@@ -523,6 +523,20 @@ export const optionsSchema: jsonschema.Schema = {
             ],
             additionalProperties: false
         },
+        mobileConfirmationNotification: {
+            type: 'object',
+            properties: {
+                enable: {
+                    type: 'boolean'
+                },
+                customTitle: {
+                    type: 'string'
+                },
+                customDescription: {
+                    type: 'string'
+                },
+            }
+        },
         sendAlert: {
             type: 'object',
             properties: {

@@ -15,6 +15,8 @@ import SteamID from 'steamid';
 import Currencies from '@tf2autobot/tf2-currencies';
 import timersPromises from 'timers/promises';
 
+import NodeNotifier from 'node-notifier';
+
 import { UnknownDictionaryKnownValues, UnknownDictionary } from '../types/common';
 import Bot from './Bot';
 import Inventory, { Dict } from './Inventory';
@@ -24,6 +26,7 @@ import { exponentialBackoff } from '../lib/helpers';
 import { sendAlert } from '../lib/DiscordWebhook/export';
 import { isBptfBanned } from '../lib/bans';
 import * as t from '../lib/tools/export';
+import { off } from 'process';
 
 type PureSKU = '5021;6' | '5002;6' | '5001;6' | '5000;6';
 type AddOrRemoveMyOrTheirItems = 'addMyItems' | 'removeMyItems' | 'addTheirItems' | 'removeTheirItems';
@@ -1175,7 +1178,7 @@ export default class Trades {
                     log.error(`Failed to load inventories (${offer.partner.getSteamID64()}): `, err);
                     return reject(
                         new Error(
-                            `Failed to load your inventories (Steam might down). Please try again later.` +
+                            `Failed to load your inventories (Steam might down). Please do the offer by placing manually your items or try later.` +
                                 ` If your profile/inventory is set to private, please set it to public and try again.`
                         )
                     );
@@ -1189,9 +1192,39 @@ export default class Trades {
                 offerId: offer.id
             });
 
+            log.debug('Awaiting confirmation from the user.');
+
+            offer.partner.accountid
+
+            if(this.bot.options.mobileConfirmationNotification.enable) {
+                var title = this.bot.options.mobileConfirmationNotification.customTitle;
+                var message = this.bot.options.mobileConfirmationNotification.customDescription;
+    
+                var tpTitle = title ? title : `BOT | Request to accept a confirmation`;
+                var tpDesc = message ? message : `The trade with ID %tradeId% is ready to be accepted. The partner of the trade is %partnerId%.`;
+
+                tpTitle = tpTitle.replace(/%tradeId%/g, offer.id).replace(/%partnerId%/g, offer.partner.accountid.toString(10));
+                tpDesc = tpDesc.replace(/%tradeId%/g, offer.id).replace(/%partnerId%/g, offer.partner.accountid.toString(10));
+
+                NodeNotifier.notify({
+                    title: tpTitle,
+                    message: tpDesc
+                  });
+            }
+
+            
+            
+            /*
             const start = dayjs().valueOf();
             log.debug('actedOnConfirmationTimestamp', start);
 
+
+            const confirmationTime = dayjs().valueOf() - start;
+            offer.data('confirmationTime', confirmationTime);
+            */
+            
+
+            /*
             this.bot.community.acceptConfirmationForObject(this.bot.options.steamIdentitySecret, offer.id, err => {
                 const confirmationTime = dayjs().valueOf() - start;
                 offer.data('confirmationTime', confirmationTime);
@@ -1202,6 +1235,8 @@ export default class Trades {
 
                 return resolve();
             });
+            */
+            return resolve();
         });
     }
 

@@ -59,6 +59,11 @@
             "discord": "!"
         }
     },
+    "mobileConfirmationNotification": {
+        "enable": true,
+        "customTitle": "",
+        "customDescription": ""
+    },
     "sendAlert": {
         "enable": true,
         "autokeys": {

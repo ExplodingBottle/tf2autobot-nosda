@@ -501,7 +501,7 @@ export default class UserCart extends Cart {
         } catch (err) {
             log.error(`Failed to load inventories (${this.partnerSteamID}): `, err);
             return Promise.reject(
-                'Failed to load your inventory, Steam might be down. ' +
+                'Failed to load your inventory, Steam might be down. Please do the offer by placing manually your items or try later.' +
                     'Please try again later. If you have your profile/inventory set to private, please set it to public and try again.'
             );
         }

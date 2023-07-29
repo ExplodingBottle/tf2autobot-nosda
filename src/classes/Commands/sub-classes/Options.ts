@@ -14,6 +14,7 @@ import path from 'path';
 
 export type OptionsKeys =
     | 'miscSettings'
+    | 'mobileConfirmationNotification'
     | 'sendAlert'
     | 'pricelist'
     | 'bypass'

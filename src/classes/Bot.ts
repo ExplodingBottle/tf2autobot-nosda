@@ -1,5 +1,6 @@
 import SteamID from 'steamid';
 import SteamUser from 'steam-user';
+
 import { EResult, EPersonaState } from 'steam-user';
 import TradeOfferManager, { CustomError, EconItem } from '@tf2autobot/tradeoffer-manager';
 import SteamCommunity from '@tf2autobot/steamcommunity';
@@ -835,6 +836,7 @@ export default class Bot {
             pollData?: TradeOfferManager.PollData;
             blockedList?: Blocked;
         };
+
         let cookies: string[];
 
         this.addListener(this.client, 'loggedOn', this.handler.onLoggedOn.bind(this.handler), false);
@@ -1421,7 +1423,7 @@ export default class Bot {
         if (result.actionRequired) {
             const actions = result.validActions ?? [];
 
-            if (actions.length !== 1) {
+            if (actions.length !== 1 && actions.length !== 2) {
                 throw new Error(`Unexpected number of valid actions: ${actions.length}`);
             }
 
@@ -1431,7 +1433,7 @@ export default class Bot {
                 throw new Error(`Unexpected action type: ${action.type}`);
             }
 
-            await this.session.submitSteamGuardCode(SteamTotp.generateAuthCode(this.options.steamSharedSecret));
+            //await this.session.submitSteamGuardCode(SteamTotp.generateAuthCode(this.options.steamSharedSecret));
         }
 
         this.session.on('error', err => {

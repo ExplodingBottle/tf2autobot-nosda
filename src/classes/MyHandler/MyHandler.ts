@@ -459,7 +459,7 @@ export default class MyHandler extends Handler {
         if (steamID.type !== 0) {
             const steamID64 = steamID.toString();
             if (!this.bot.friends.isFriend(steamID64)) {
-                return;
+            //    return;
             }
 
             const friend = this.bot.friends.getFriend(steamID64);
@@ -2089,7 +2089,7 @@ export default class MyHandler extends Handler {
                 steamID,
                 preAcceptMessageOpt.largeOffer
                     ? preAcceptMessageOpt.largeOffer
-                    : 'I have accepted your offer. The trade may take a while to finalize due to it being a large offer.' +
+                    : 'I have accepted your offer but my owner must manually accept the mobile confirmation. The trade may take a while to finalize due to it being a large offer.' +
                           ' If the trade does not finalize after 5-10 minutes has passed, please send your offer again, ' +
                           'or add me and use the !sell/!sellcart or !buy/!buycart command.'
             );
@@ -2098,7 +2098,7 @@ export default class MyHandler extends Handler {
                 steamID,
                 preAcceptMessageOpt.smallOffer
                     ? preAcceptMessageOpt.smallOffer
-                    : 'I have accepted your offer. The trade will be finalized shortly.' +
+                    : 'I have accepted your offer but my owner must manually accept the mobile confirmation. The trade will be finalized shortly.' +
                           ' If the trade does not finalize after 1-2 minutes has passed, please send your offer again, ' +
                           'or add me and use the !sell/!sellcart or !buy/!buycart command.'
             );
@@ -2337,6 +2337,7 @@ export default class MyHandler extends Handler {
         }
 
         this.bot.getAdmins.forEach(steamID => {
+            /*
             if (!this.bot.friends.isFriend(steamID)) {
                 log.info(`Not friends with admin ${steamID.toString()}, sending friend request...`);
                 this.bot.client.addFriend(steamID, err => {
@@ -2345,6 +2346,7 @@ export default class MyHandler extends Handler {
                     }
                 });
             }
+            */
         });
     }
 

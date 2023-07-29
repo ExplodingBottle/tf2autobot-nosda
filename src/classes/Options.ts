@@ -600,6 +600,12 @@ export const DEFAULTS: JsonOptions = {
         }
     },
 
+    mobileConfirmationNotification: {
+        enable: true,
+        customTitle: '',
+        customDescription: ''
+    },
+
     customMessage: {
         sendOffer: '',
         counterOffer: '',
@@ -1231,6 +1237,14 @@ export interface ReputationCheck {
 interface AlwaysRemoveItemAttributes {
     customTexture?: OnlyEnable;
     // giftedByTag?: OnlyEnable;
+}
+
+// ------------ MobileConfirmationNotificationSettings ------------
+
+interface MobileConfirmationNotificationSettings extends OnlyEnable {
+    enable?: boolean;
+    customTitle?: string;
+    customDescription?: string;
 }
 
 // ------------ SendAlert ------------
@@ -2134,6 +2148,7 @@ interface StrangeParts {
 
 export interface JsonOptions {
     miscSettings?: MiscSettings;
+    mobileConfirmationNotification?: MobileConfirmationNotificationSettings;
     sendAlert?: SendAlert;
     pricelist?: Pricelist;
     bypass?: Bypass;
